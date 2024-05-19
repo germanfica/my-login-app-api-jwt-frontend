@@ -39,6 +39,16 @@ export class ApiService {
     );
   }
 
+  logout(token: string): Observable<any> {
+    const url = `${this.apiUrl}/logout`;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.post<any>(url, {}, { headers }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   private handleError(error: any): Observable<never> {
     // Manejo de errores personalizado
     console.error('An error occurred', error);

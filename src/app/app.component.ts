@@ -57,4 +57,19 @@ export class AppComponent {
       console.error('No token found');
     }
   }
+
+  onLogout() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.apiService.logout(token).subscribe(response => {
+        console.log('Logout successful', response);
+        localStorage.removeItem('token');
+        this.profile = null;  // Limpia la información del perfil
+      }, error => {
+        console.error('Logout error', error);
+      });
+    } else {
+      console.error('No token found');
+    }
+  }
 }
