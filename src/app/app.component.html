@@ -1,4 +1,11 @@
-<div>
+<nav>
+  <app-switch [isChecked]="themeService.isDarkModeEnabled()" (toggle)="handleToggle($event)">Dark Mode
+    <span *ngIf="themeService.isDarkModeEnabled()">🌙</span>
+    <span *ngIf="!themeService.isDarkModeEnabled()">☀️</span>
+  </app-switch>
+</nav>
+
+<div [ngClass]="{'dark-mode': themeService.isDarkModeEnabled(), 'light-mode': !themeService.isDarkModeEnabled()}">
   <h1>Login</h1>
   <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
     <div class="input-container">

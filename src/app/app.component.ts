@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ApiService } from './core/services/api.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ThemeService } from './core/services/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,8 @@ export class AppComponent {
   signupForm: FormGroup;
   profile: any = null;
 
-  constructor(private fb: FormBuilder, private apiService: ApiService) {
+  constructor(private fb: FormBuilder, private apiService: ApiService, public themeService: ThemeService) {
+    this.themeService.toggleDarkMode();
     this.loginForm = this.fb.group({
       username: [''],
       password: ['']
@@ -24,6 +26,13 @@ export class AppComponent {
       displayName: [''],
       email: ['']
     });
+  }
+
+  handleToggle(isChecked: boolean) {
+    console.log('Dark mode is now', isChecked ? 'on' : 'off');
+    if (isChecked)
+      this.themeService.toggleDarkMode()
+    else this.themeService.toggleLightMode()
   }
 
   onLogin() {

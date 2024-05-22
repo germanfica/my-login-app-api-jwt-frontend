@@ -5,10 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SwitchComponent } from './switch/switch.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SwitchComponent
   ],
   imports: [
     BrowserModule,

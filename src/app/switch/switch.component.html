@@ -1,0 +1,8 @@
+<div class="switch-container">
+    <input type="checkbox" id="toggleSwitch" (change)="toggleSwitch($event)" [checked]="isChecked" />
+    <label for="toggleSwitch" class="switch-label">
+        <span class="switch-inner"></span>
+        <span class="switch-slider"></span>
+    </label>
+    <span class="switch-text"> <ng-content></ng-content> </span>
+</div>
