@@ -78,7 +78,11 @@ export class ThemeService {
 
     if (this.isBrowser) {
       const darkMode = localStorage.getItem('dark_mode_enabled');
-      darkModeState = darkMode === 'true';
+      if (darkMode === null) {
+        darkModeState = this.isDarkMode; // Default value
+      } else {
+        darkModeState = darkMode === 'true';
+      }
     } else {
       darkModeState = this.isDarkMode;
     }
