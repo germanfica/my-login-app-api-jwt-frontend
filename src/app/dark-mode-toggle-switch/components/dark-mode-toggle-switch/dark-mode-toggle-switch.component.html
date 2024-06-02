@@ -1,0 +1,4 @@
+<app-switch [isChecked]="themeService.isDarkModeEnabled()" (toggle)="handleToggle($event)">Dark Mode
+    <span *ngIf="themeService.isDarkModeEnabled()">🌙</span>
+    <span *ngIf="!themeService.isDarkModeEnabled()">☀️</span>
+</app-switch>

@@ -5,21 +5,21 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule, provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-import { SwitchComponent } from './switch/switch.component';
 import { authInterceptor } from '@core/providers/auth.interceptor';
 import { AuthModule } from './auth/auth.module';
+import { DarkModeToggleSwitchModule } from './dark-mode-toggle-switch/dark-mode-toggle-switch.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SwitchComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    AuthModule
+    AuthModule,
+    DarkModeToggleSwitchModule
   ],
   providers: [
     provideClientHydration(
