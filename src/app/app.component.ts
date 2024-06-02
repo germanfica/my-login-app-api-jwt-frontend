@@ -16,13 +16,6 @@ export class AppComponent {
     this.themeService.toggleDarkMode();
   }
 
-  handleToggle(isChecked: boolean) {
-    console.log('Dark mode is now', isChecked ? 'on' : 'off');
-    if (isChecked)
-      this.themeService.toggleDarkMode()
-    else this.themeService.toggleLightMode()
-  }
-
   onGetProfile() {
     const token = this.authService.getAccessToken();
 
