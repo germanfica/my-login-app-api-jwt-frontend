@@ -1,6 +1,5 @@
 /* Estilos para el modo claro */
 .light-mode {
-
     h1 {
         color: $primary-color;
         margin-bottom: 20px;
@@ -8,14 +7,7 @@
 
     form {
         background: #fff;
-        padding: $form-padding;
-        margin-bottom: $form-margin-bottom;
         border: 1px solid $input-border;
-        border-radius: $border-radius;
-        box-shadow: $box-shadow;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
     }
 
     .input-container {
