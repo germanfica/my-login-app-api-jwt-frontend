@@ -7,6 +7,7 @@ import { HttpClientModule, provideHttpClient, withFetch, withInterceptors } from
 import { ReactiveFormsModule } from '@angular/forms';
 import { SwitchComponent } from './switch/switch.component';
 import { authInterceptor } from '@core/providers/auth.interceptor';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { authInterceptor } from '@core/providers/auth.interceptor';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AuthModule
   ],
   providers: [
     provideClientHydration(

@@ -7,15 +7,7 @@
 
 <div [ngClass]="{'dark-mode': themeService.isDarkModeEnabled(), 'light-mode': !themeService.isDarkModeEnabled()}">
   <h1>Login</h1>
-  <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-    <div class="input-container">
-      <input type="text" formControlName="username" placeholder="Username">
-    </div>
-    <div class="input-container">
-      <input type="password" formControlName="password" placeholder="Password">
-    </div>
-    <button type="submit">Login</button>
-  </form>
+  <app-login-form></app-login-form>
 
   <h1>Signup</h1>
   <form [formGroup]="signupForm" (ngSubmit)="onSignup()">

@@ -10,17 +10,12 @@ import { AuthService } from '@core/services/auth.service';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  loginForm: FormGroup;
   signupForm: FormGroup;
   profile: any = null;
   allToekenInfo: any = null;
 
   constructor(private fb: FormBuilder, private apiService: ApiService, private authService: AuthService, public themeService: ThemeService) {
     this.themeService.toggleDarkMode();
-    this.loginForm = this.fb.group({
-      username: [''],
-      password: ['']
-    });
 
     this.signupForm = this.fb.group({
       username: [''],
@@ -35,19 +30,6 @@ export class AppComponent {
     if (isChecked)
       this.themeService.toggleDarkMode()
     else this.themeService.toggleLightMode()
-  }
-
-  onLogin() {
-    const { username, password } = this.loginForm.value;
-    this.authService.login(username, password).subscribe({
-      next: response => {
-        console.log('Login successful', response);
-        //this.apiService.setAccessToken(response.token);
-      },
-      error: error => {
-        console.error('Login error', error);
-      }
-    });
   }
 
   onSignup() {
