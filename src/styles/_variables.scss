@@ -1,0 +1,27 @@
+/* Variables */
+$primary-color: #3498db;
+$secondary-color: #2ecc71;
+$text-color: #333;
+$background-color: #333;
+$input-border: #ddd;
+$input-focus-border: $primary-color;
+$button-background: $primary-color;
+$button-hover-background: darken($primary-color, 10%);
+$button-text-color: #fff;
+$form-padding: 20px;
+$form-margin-bottom: 40px;
+$input-padding: 10px;
+$button-padding: 10px 20px;
+$border-radius: 5px;
+$box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+/* Colores y temas */
+$primary-color-dark: #575757;
+$button-hover-background-dark: darken($primary-color-dark, 10%);
+$text-color-light: #333;
+$text-color-dark: #fff;
+$background-color-light: #fff;
+$background-color-dark: #333;
+$bgColor-form: #121212;
+$bgColor-no-selected: #252525;
+$input-border-dark: #252525;

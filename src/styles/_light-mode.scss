@@ -1,0 +1,53 @@
+/* Estilos para el modo claro */
+.light-mode {
+
+    h1 {
+        color: $primary-color;
+        margin-bottom: 20px;
+    }
+
+    form {
+        background: #fff;
+        padding: $form-padding;
+        margin-bottom: $form-margin-bottom;
+        border: 1px solid $input-border;
+        border-radius: $border-radius;
+        box-shadow: $box-shadow;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .input-container {
+        display: flex;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="email"] {
+        width: 100%;
+        padding: $input-padding;
+        margin-bottom: 10px;
+        border: 1px solid $input-border;
+        border-radius: $border-radius;
+
+        &:focus {
+            border-color: $input-focus-border;
+            outline: none;
+        }
+    }
+
+    button {
+        @include button-styles($button-background, $button-hover-background);
+    }
+
+    pre {
+        background: #fff;
+        padding: $form-padding;
+        border: 1px solid $input-border;
+        border-radius: $border-radius;
+        box-shadow: $box-shadow;
+    }
+}

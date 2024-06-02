@@ -1,0 +1,11 @@
+/* Estilos específicos para formularios */
+.form {
+    padding: $form-padding;
+    margin-bottom: $form-margin-bottom;
+    border: 1px solid $input-border;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
