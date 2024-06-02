@@ -7,12 +7,16 @@ import { isPlatformBrowser } from '@angular/common';
 export class ThemeService {
   private activeTheme = 'light-theme';
   private renderer: Renderer2;
-  private isDarkMode: boolean = false;
+  private isDarkMode: boolean = true;
   private isBrowser: boolean;
 
   constructor(rendererFactory: RendererFactory2, @Inject(PLATFORM_ID) platformId: Object) {
     this.renderer = rendererFactory.createRenderer(null, null);
     this.isBrowser = isPlatformBrowser(platformId);
+    if (this.isBrowser) {
+      this.isDarkMode = this.getDarkModeState();
+      this.setBodyClass();
+    }
   }
 
   isDarkModeEnabled(): boolean {
@@ -21,16 +25,19 @@ export class ThemeService {
 
   toggleDarkMode() {
     this.isDarkMode = true;
+    this.setDarkModeState(true);
     this.setBodyClass();
   }
 
   toggleLightMode() {
     this.isDarkMode = false;
+    this.setDarkModeState(false);
     this.setBodyClass();
   }
 
   toggleBackgroundColor() {
     this.isDarkMode = !this.isDarkMode;
+    this.setDarkModeState(this.isDarkMode);
     this.setBodyClass();
   }
 
@@ -63,6 +70,31 @@ export class ThemeService {
         this.renderer.addClass(document.body, 'light-mode');
         this.renderer.removeClass(document.body, 'dark-mode');
       }
+    }
+  }
+
+  private getDarkModeState(): boolean {
+    let darkModeState: boolean;
+
+    if (this.isBrowser) {
+      const darkMode = localStorage.getItem('dark_mode_enabled');
+      darkModeState = darkMode === 'true';
+    } else {
+      darkModeState = this.isDarkMode;
+    }
+
+    return darkModeState;
+  }
+
+  private setDarkModeState(isEnabled: boolean) {
+    if (this.isBrowser) {
+      localStorage.setItem('dark_mode_enabled', isEnabled.toString());
+    }
+  }
+
+  private removeDarkModeState() {
+    if (this.isBrowser) {
+      localStorage.removeItem('dark_mode_enabled');
     }
   }
 }

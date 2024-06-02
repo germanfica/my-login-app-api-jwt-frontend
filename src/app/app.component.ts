@@ -13,7 +13,6 @@ export class AppComponent {
   allToekenInfo: any = null;
 
   constructor(private apiService: ApiService, private authService: AuthService, public themeService: ThemeService) {
-    this.themeService.toggleDarkMode();
   }
 
   onGetProfile() {

@@ -12,7 +12,6 @@ export class LoginFormComponent {
   loginForm: FormGroup;
 
   constructor(private fb: FormBuilder, private authService: AuthService, public themeService: ThemeService) {
-    this.themeService.toggleDarkMode();
     this.loginForm = this.fb.group({
       username: [''],
       password: ['']
