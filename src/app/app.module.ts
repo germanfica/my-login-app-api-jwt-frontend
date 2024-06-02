@@ -3,9 +3,10 @@ import { BrowserModule, provideClientHydration, withHttpTransferCacheOptions } f
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SwitchComponent } from './switch/switch.component';
+import { authInterceptor } from '@core/providers/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,10 @@ import { SwitchComponent } from './switch/switch.component';
         includePostRequests: true,
       }),
     ),
-    provideHttpClient(withFetch()),  // Habilitar fetch para HttpClient,
+    provideHttpClient(
+      withFetch(), // Enable fetch for HttpClient
+      withInterceptors([authInterceptor]) // Enable interceptor
+    ),
   ],
   bootstrap: [AppComponent]
 })

@@ -9,13 +9,13 @@ import { User } from '../models/user';
   providedIn: 'root'
 })
 export class ApiService {
-  private apiUrl: string = 'http://localhost:3000';
+  private readonly API_URL: string = 'http://localhost:3000';
   private readonly ACCESS_TOKEN_KEY: string = 'access_token'; // access token key name
 
   constructor(private http: HttpClient) { }
 
   login(username: string, password: string): Observable<{ token: string }> {
-    const url = `${this.apiUrl}/login`;
+    const url = `${this.API_URL}/login`;
     const body = { username, password };
     return this.http.post<{ token: string }>(url, body).pipe(
       tap(response => this.setAccessToken(response.token)),
@@ -24,7 +24,7 @@ export class ApiService {
   }
 
   signup(username: string, password: string, displayName: string, email: string): Observable<User> {
-    const url = `${this.apiUrl}/signup`;
+    const url = `${this.API_URL}/signup`;
     const body = { username, password, displayName, email };
     return this.http.post<User>(url, body).pipe(
       catchError(this.handleError)
@@ -32,21 +32,15 @@ export class ApiService {
   }
 
   getProfile(token: string): Observable<any> {
-    const url = `${this.apiUrl}/profile`;
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-    return this.http.get<any>(url, { headers }).pipe(
+    const url = `${this.API_URL}/profile`;
+    return this.http.get<any>(url).pipe(
       catchError(this.handleError)
     );
   }
 
   logout(token: string): Observable<any> {
-    const url = `${this.apiUrl}/logout`;
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-    return this.http.post<any>(url, {}, { headers }).pipe(
+    const url = `${this.API_URL}/logout`;
+    return this.http.post<any>(url, {}).pipe(
       tap(() => this.removeAccessToken()),
       catchError(this.handleError)
     );
