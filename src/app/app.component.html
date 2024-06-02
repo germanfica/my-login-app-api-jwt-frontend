@@ -10,21 +10,7 @@
   <app-login-form></app-login-form>
 
   <h1>Signup</h1>
-  <form [formGroup]="signupForm" (ngSubmit)="onSignup()">
-    <div class="input-container">
-      <input type="text" formControlName="username" placeholder="Username">
-    </div>
-    <div class="input-container">
-      <input type="password" formControlName="password" placeholder="Password">
-    </div>
-    <div class="input-container">
-      <input type="text" formControlName="displayName" placeholder="Display Name">
-    </div>
-    <div class="input-container">
-      <input type="email" formControlName="email" placeholder="Email">
-    </div>
-    <button type="submit">Signup</button>
-  </form>
+  <app-signup-form></app-signup-form>
 
   <h1>Profile</h1>
   <div class="profile-container">

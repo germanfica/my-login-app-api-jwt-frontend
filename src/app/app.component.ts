@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ApiService } from './core/services/api.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { ThemeService } from './core/services/theme.service';
 import { AuthService } from '@core/services/auth.service';
 
@@ -10,19 +9,11 @@ import { AuthService } from '@core/services/auth.service';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  signupForm: FormGroup;
   profile: any = null;
   allToekenInfo: any = null;
 
-  constructor(private fb: FormBuilder, private apiService: ApiService, private authService: AuthService, public themeService: ThemeService) {
+  constructor(private apiService: ApiService, private authService: AuthService, public themeService: ThemeService) {
     this.themeService.toggleDarkMode();
-
-    this.signupForm = this.fb.group({
-      username: [''],
-      password: [''],
-      displayName: [''],
-      email: ['']
-    });
   }
 
   handleToggle(isChecked: boolean) {
@@ -30,19 +21,6 @@ export class AppComponent {
     if (isChecked)
       this.themeService.toggleDarkMode()
     else this.themeService.toggleLightMode()
-  }
-
-  onSignup() {
-    const { username, password, displayName, email } = this.signupForm.value;
-    this.authService.signup(username, password, displayName, email).subscribe({
-      next: response => {
-        console.log('Signup successful', response);
-      },
-
-      error: error => {
-        console.error('Signup error', error);
-      }
-    });
   }
 
   onGetProfile() {

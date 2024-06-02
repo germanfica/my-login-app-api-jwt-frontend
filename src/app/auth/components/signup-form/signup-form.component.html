@@ -1,0 +1,17 @@
+<div [ngClass]="{'dark-mode': themeService.isDarkModeEnabled(), 'light-mode': !themeService.isDarkModeEnabled()}">
+    <form [formGroup]="signupForm" (ngSubmit)="onSignup()">
+        <div class="input-container">
+            <input type="text" formControlName="username" placeholder="Username">
+        </div>
+        <div class="input-container">
+            <input type="password" formControlName="password" placeholder="Password">
+        </div>
+        <div class="input-container">
+            <input type="text" formControlName="displayName" placeholder="Display Name">
+        </div>
+        <div class="input-container">
+            <input type="email" formControlName="email" placeholder="Email">
+        </div>
+        <button type="submit">Signup</button>
+    </form>
+</div>
