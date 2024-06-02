@@ -39,20 +39,27 @@ export class AppComponent {
 
   onLogin() {
     const { username, password } = this.loginForm.value;
-    this.authService.login(username, password).subscribe(response => {
-      console.log('Login successful', response);
-      //this.apiService.setAccessToken(response.token);
-    }, error => {
-      console.error('Login error', error);
+    this.authService.login(username, password).subscribe({
+      next: response => {
+        console.log('Login successful', response);
+        //this.apiService.setAccessToken(response.token);
+      },
+      error: error => {
+        console.error('Login error', error);
+      }
     });
   }
 
   onSignup() {
     const { username, password, displayName, email } = this.signupForm.value;
-    this.authService.signup(username, password, displayName, email).subscribe(response => {
-      console.log('Signup successful', response);
-    }, error => {
-      console.error('Signup error', error);
+    this.authService.signup(username, password, displayName, email).subscribe({
+      next: response => {
+        console.log('Signup successful', response);
+      },
+
+      error: error => {
+        console.error('Signup error', error);
+      }
     });
   }
 
@@ -60,10 +67,13 @@ export class AppComponent {
     const token = this.authService.getAccessToken();
 
     if (token) {
-      this.apiService.getProfile().subscribe(response => {
-        this.profile = response;
-      }, error => {
-        console.error('Get profile error', error);
+      this.apiService.getProfile().subscribe({
+        next: response => {
+          this.profile = response;
+        },
+        error: error => {
+          console.error('Get profile error', error);
+        }
       });
     } else {
       console.error('No token found');
@@ -79,13 +89,17 @@ export class AppComponent {
   onLogout() {
     const token = this.authService.getAccessToken();
     if (token) {
-      this.authService.logout().subscribe(response => {
-        console.log('Logout successful', response);
-        this.profile = null;  // Limpia la información del perfil
-        this.allToekenInfo = null;
-      }, error => {
-        console.error('Logout error', error);
-      });
+      this.authService.logout().subscribe(
+        {
+          next: response => {
+            console.log('Logout successful', response);
+            this.profile = null;  // Limpia la información del perfil
+            this.allToekenInfo = null;
+          },
+          error: error => {
+            console.error('Logout error', error);
+          }
+        });
     } else {
       console.error('No token found');
     }
