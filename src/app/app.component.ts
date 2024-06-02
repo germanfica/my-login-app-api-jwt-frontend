@@ -12,6 +12,7 @@ export class AppComponent {
   loginForm: FormGroup;
   signupForm: FormGroup;
   profile: any = null;
+  allToekenInfo: any = null;
 
   constructor(private fb: FormBuilder, private apiService: ApiService, public themeService: ThemeService) {
     this.themeService.toggleDarkMode();
@@ -39,7 +40,7 @@ export class AppComponent {
     const { username, password } = this.loginForm.value;
     this.apiService.login(username, password).subscribe(response => {
       console.log('Login successful', response);
-      localStorage.setItem('token', response.token);
+      //this.apiService.setAccessToken(response.token);
     }, error => {
       console.error('Login error', error);
     });
@@ -55,7 +56,8 @@ export class AppComponent {
   }
 
   onGetProfile() {
-    const token = localStorage.getItem('token');
+    const token = this.apiService.getAccessToken();
+
     if (token) {
       this.apiService.getProfile(token).subscribe(response => {
         this.profile = response;
@@ -65,15 +67,22 @@ export class AppComponent {
     } else {
       console.error('No token found');
     }
+
+    const allInfo = this.apiService.getAllInfo();
+
+    this.allToekenInfo = allInfo;
+
+    console.table(allInfo);
   }
 
   onLogout() {
-    const token = localStorage.getItem('token');
+    const token = this.apiService.getAccessToken();
     if (token) {
       this.apiService.logout(token).subscribe(response => {
         console.log('Logout successful', response);
-        localStorage.removeItem('token');
+        //this.apiService.removeAccessToken();
         this.profile = null;  // Limpia la información del perfil
+        this.allToekenInfo = null;
       }, error => {
         console.error('Logout error', error);
       });
