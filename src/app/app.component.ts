@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ApiService } from './core/services/api.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ThemeService } from './core/services/theme.service';
+import { AuthService } from '@core/services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,7 @@ export class AppComponent {
   profile: any = null;
   allToekenInfo: any = null;
 
-  constructor(private fb: FormBuilder, private apiService: ApiService, public themeService: ThemeService) {
+  constructor(private fb: FormBuilder, private apiService: ApiService, private authService: AuthService, public themeService: ThemeService) {
     this.themeService.toggleDarkMode();
     this.loginForm = this.fb.group({
       username: [''],
@@ -38,7 +39,7 @@ export class AppComponent {
 
   onLogin() {
     const { username, password } = this.loginForm.value;
-    this.apiService.login(username, password).subscribe(response => {
+    this.authService.login(username, password).subscribe(response => {
       console.log('Login successful', response);
       //this.apiService.setAccessToken(response.token);
     }, error => {
@@ -48,7 +49,7 @@ export class AppComponent {
 
   onSignup() {
     const { username, password, displayName, email } = this.signupForm.value;
-    this.apiService.signup(username, password, displayName, email).subscribe(response => {
+    this.authService.signup(username, password, displayName, email).subscribe(response => {
       console.log('Signup successful', response);
     }, error => {
       console.error('Signup error', error);
@@ -56,10 +57,10 @@ export class AppComponent {
   }
 
   onGetProfile() {
-    const token = this.apiService.getAccessToken();
+    const token = this.authService.getAccessToken();
 
     if (token) {
-      this.apiService.getProfile(token).subscribe(response => {
+      this.apiService.getProfile().subscribe(response => {
         this.profile = response;
       }, error => {
         console.error('Get profile error', error);
@@ -68,7 +69,7 @@ export class AppComponent {
       console.error('No token found');
     }
 
-    const allInfo = this.apiService.getAllInfo();
+    const allInfo = this.authService.getAllInfo();
 
     this.allToekenInfo = allInfo;
 
@@ -76,11 +77,10 @@ export class AppComponent {
   }
 
   onLogout() {
-    const token = this.apiService.getAccessToken();
+    const token = this.authService.getAccessToken();
     if (token) {
-      this.apiService.logout(token).subscribe(response => {
+      this.authService.logout().subscribe(response => {
         console.log('Logout successful', response);
-        //this.apiService.removeAccessToken();
         this.profile = null;  // Limpia la información del perfil
         this.allToekenInfo = null;
       }, error => {
