@@ -37,13 +37,13 @@ export class AuthService {
    *
    * @param username - The user's username.
    * @param password - The user's password.
-   * @param displayName - The user's display name.
+   * @param display_name - The user's display name.
    * @param email - The user's email address.
    * @returns An Observable emitting the newly created user.
    */
-  signup(username: string, password: string, displayName: string, email: string): Observable<User> {
+  signup(username: string, password: string, display_name: string, email: string): Observable<User> {
     const url = `${this.API_URL}/signup`;
-    const body = { username, password, displayName, email };
+    const body = { username, password, display_name, email };
     return this.http.post<User>(url, body).pipe(
       catchError(this.handleError)
     );

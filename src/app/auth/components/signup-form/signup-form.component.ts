@@ -15,14 +15,14 @@ export class SignupFormComponent {
     this.signupForm = this.fb.group({
       username: [''],
       password: [''],
-      displayName: [''],
+      display_name: [''],
       email: ['']
     });
   }
 
   onSignup() {
-    const { username, password, displayName, email } = this.signupForm.value;
-    this.authService.signup(username, password, displayName, email).subscribe({
+    const { username, password, display_name, email } = this.signupForm.value;
+    this.authService.signup(username, password, display_name, email).subscribe({
       next: response => {
         console.log('Signup successful', response);
       },
