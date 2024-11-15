@@ -1,5 +1,6 @@
+import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { User } from '@core/models/user';
 import { Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
@@ -13,8 +14,11 @@ import { catchError, tap } from 'rxjs/operators';
 export class AuthService {
   private readonly API_URL: string = 'http://localhost:3000';
   private readonly ACCESS_TOKEN_KEY: string = 'access_token'; // access token key name
+  private isBrowser: boolean;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, @Inject(PLATFORM_ID) platformId: Object) {
+    this.isBrowser = isPlatformBrowser(platformId);
+  }
 
   /**
    * Log in a user.
@@ -78,9 +82,12 @@ export class AuthService {
    * @returns The access token or null if not found.
    */
   getAccessToken(): string | null {
-    //return localStorage.getItem('access_token');
-    return localStorage.getItem(this.ACCESS_TOKEN_KEY);
-    //return sessionStorage.getItem(this.ACCESS_TOKEN_KEY);
+    if (this.isBrowser) {
+      //return localStorage.getItem('access_token');
+      return localStorage.getItem(this.ACCESS_TOKEN_KEY);
+      //return sessionStorage.getItem(this.ACCESS_TOKEN_KEY);
+    }
+    return null;
   }
 
   /**
@@ -89,17 +96,21 @@ export class AuthService {
    * @param token - The access token.
    */
   private setAccessToken(token: string): void {
-    //localStorage.setItem('access_token', token);
-    localStorage.setItem(this.ACCESS_TOKEN_KEY, token);
-    //sessionStorage.setItem(this.ACCESS_TOKEN_KEY, token);
+    if (this.isBrowser) {
+      //localStorage.setItem('access_token', token);
+      localStorage.setItem(this.ACCESS_TOKEN_KEY, token);
+      //sessionStorage.setItem(this.ACCESS_TOKEN_KEY, token);
+    }
   }
 
   /**
    * Remove the stored access token.
    */
   private removeAccessToken(): void {
-    localStorage.removeItem(this.ACCESS_TOKEN_KEY);
-    //sessionStorage.removeItem(this.ACCESS_TOKEN_KEY);
+    if (this.isBrowser) {
+      localStorage.removeItem(this.ACCESS_TOKEN_KEY);
+      //sessionStorage.removeItem(this.ACCESS_TOKEN_KEY);
+    }
   }
 
   /**
