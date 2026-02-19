@@ -3,6 +3,9 @@
 </nav>
 
 <div [ngClass]="{'dark-mode': themeService.isDarkModeEnabled(), 'light-mode': !themeService.isDarkModeEnabled()}">
+
+  <pre>{{ getUserInfo() | json }}</pre>
+
   <h1>Login</h1>
   <app-login-form></app-login-form>
 

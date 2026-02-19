@@ -56,4 +56,18 @@ export class AppComponent {
       console.error('No token found');
     }
   }
+
+  getUserInfo(): any {
+    const token = "YOUR-TOKEN";
+
+    let userInfo: any;
+
+    if (token) {
+      const payload = token.split('.')[1];
+      const payloadDecodedJson = atob(payload);
+      const payloadDecoded = JSON.parse(payloadDecodedJson);
+      userInfo = payloadDecoded;
+    }
+    return userInfo;
+  }
 }
